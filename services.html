@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Menu — Pota Cafe Kathmandu</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    .menu-section-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 36px;
+      margin-top: 64px;
+    }
+    .menu-section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 400;
+      color: var(--cream);
+      white-space: nowrap;
+    }
+    .menu-section-title em { font-style: italic; color: var(--caramel-light); }
+    .menu-section-line { flex: 1; height: 1px; background: var(--glass-border); }
+    .menu-section-count { font-size: 0.62rem; letter-spacing: 0.2em; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <div id="page-loader">
+    <div class="loader-cup">☕</div>
+    <div class="loader-name">Pota Cafe</div>
+    <div class="loader-tagline">Our Menu</div>
+    <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  </div>
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- Cart -->
+  <button class="cart-toggle" id="cart-toggle">🛒<span class="cart-badge" id="cart-badge">0</span></button>
+  <div class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header"><h3>Your Order</h3><button class="cart-close" id="cart-close">✕</button></div>
+    <div class="cart-items" id="cart-items"><div class="cart-empty" id="cart-empty"><div class="cart-empty-icon">☕</div><p>Your cart is empty.<br/>Add something delicious!</p></div></div>
+    <div class="cart-footer">
+      <div class="cart-total"><span class="cart-total-label">Total</span><span class="cart-total-amount" id="cart-total-amount">Rs. 0</span></div>
+      <div class="cart-actions">
+        <button class="cart-whatsapp" id="cart-whatsapp">📱 Order via WhatsApp</button>
+        <button class="cart-email" id="cart-email">✉️ Order via Email</button>
+      </div>
+    </div>
+  </div>
+  <div class="cart-overlay" id="cart-overlay"></div>
+
+  <div class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="about.html">Our Story</a>
+    <a href="services.html">Menu</a>
+    <a href="contact.html">Visit Us</a>
+  </div>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-logo"><span class="nav-logo-main">Pota Cafe</span><span class="nav-logo-sub">Boudha · Kathmandu</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">Our Story</a></li>
+      <li><a href="services.html" class="active">Menu</a></li>
+      <li><a href="contact.html">Visit Us</a></li>
+    </ul>
+    <button class="nav-order-btn" onclick="document.getElementById('cart-toggle').click()">View Cart</button>
+    <button class="nav-hamburger"><span></span><span></span><span></span></button>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-bg" style="background-image:url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1400&q=80');"></div>
+    <div class="page-header-overlay"></div>
+    <div class="page-header-content">
+      <span class="page-header-eyebrow">Home → Menu</span>
+      <h1 class="page-header-title">Crafted for <em style="color:var(--caramel-light);font-style:italic;">You</em>,<br/>Made with Love</h1>
+    </div>
+  </div>
+
+  <div class="marquee-strip">
+    <div class="marquee-track">
+      <span class="marquee-item">Hot Coffee</span>
+      <span class="marquee-item">Cold Drinks</span>
+      <span class="marquee-item">All-Day Brunch</span>
+      <span class="marquee-item">House Desserts</span>
+      <span class="marquee-item">Fresh Pastries</span>
+      <span class="marquee-item">Vegan Options</span>
+      <span class="marquee-item">Hot Coffee</span>
+      <span class="marquee-item">Cold Drinks</span>
+      <span class="marquee-item">All-Day Brunch</span>
+      <span class="marquee-item">House Desserts</span>
+      <span class="marquee-item">Fresh Pastries</span>
+      <span class="marquee-item">Vegan Options</span>
+    </div>
+  </div>
+
+  <section style="padding:80px 5%;">
+    <div class="reveal">
+      <span class="section-eyebrow">Our Full Menu</span>
+      <h2 class="section-title">Something for <em>Every</em><br/>Mood & Moment</h2>
+      <div class="section-line"></div>
+      <p style="font-size:0.84rem;line-height:1.9;color:var(--text-soft);max-width:520px;margin-bottom:44px;">
+        Everything on this menu is made from scratch daily. We use Nepali highland coffee, local dairy, and seasonal produce. If we run out, it means it was good. Come early.
+      </p>
+    </div>
+
+    <!-- FILTER -->
+    <div class="filter-bar reveal delay-1">
+      <button class="filter-btn active" data-filter="all">All Items</button>
+      <button class="filter-btn" data-filter="coffee">☕ Hot Coffee</button>
+      <button class="filter-btn" data-filter="cold">🧊 Cold Drinks</button>
+      <button class="filter-btn" data-filter="food">🍳 Brunch</button>
+      <button class="filter-btn" data-filter="dessert">🍰 Desserts</button>
+      <button class="filter-btn" data-filter="pastry">🥐 Pastries</button>
+    </div>
+
+    <!-- HOT COFFEE -->
+    <div class="menu-section-header reveal">
+      <h3 class="menu-section-title">Hot <em>Coffee</em></h3>
+      <div class="menu-section-line"></div>
+      <span class="menu-section-count">8 drinks</span>
+    </div>
+    <div class="menu-grid">
+
+      <div class="menu-card reveal delay-1" data-category="coffee">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80" alt="Honey Lavender Latte" loading="lazy"/>
+          <span class="menu-card-badge">Bestseller</span>
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Signature Latte</p>
+          <h3 class="menu-card-name">Honey Lavender Latte</h3>
+          <p class="menu-card-desc">Velvety milk, raw wildflower honey, dried lavender, double shot espresso. Floral, sweet, impossibly comforting. Our most ordered drink since day one.</p>
+          <div class="menu-card-footer"><span class="menu-card-price">Rs. 380</span><button class="add-to-cart-btn">+ Add</button></div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal delay-2" data-category="coffee">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80" alt="Cappuccino" loading="lazy"/>
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Signature Cappuccino</p>
+          <h3 class="menu-card-name">Burnt Caramel Cappuccino</h3>
+          <p class="menu-card-desc">Espresso, microfoam, and house-made dark caramel. Bittersweet in the best possible way. The kind of coffee that makes you stop mid-sentence to appreciate it.</p>
+          <div class="menu-card-footer"><span class="menu-card-price">Rs. 350</span><button class="add-to-cart-btn">+ Add</button></div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal delay-3" data-category="coffee">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&q=80" alt="Pour Over" loading="lazy"/>
+          <span class="menu-card-badge">Single Origin</span>
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Pour Over</p>
+          <h3 class="menu-card-name">Himalayan Pour Over</h3>
+          <p class="menu-card-desc">Beans from Lamjung's misty altitude, hand-poured slowly at 93°C. Notes of dark chocolate, dried apricot, and a long clean finish. For the purist.</p>
+          <div class="menu-card-footer"><span class="menu-card-price">Rs. 420</span><button class="add-to-cart-btn">+ Add</button></div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal delay-4" data-category="coffee">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&q=80" alt="Flat White" loading="lazy"/>
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Classic</p>
+          <h3 class="menu-card-name">Classic Flat White</h3>
+          <p class="menu-card-desc">Two ristretto shots with silky microsteamed whole milk — a ratio so precise it took Kamusari three months to perfect. Dense, rich, clean. This is coffee stripped bare.</p>
+          <div class="menu-card-footer"><span class="menu-card-price">Rs. 280</span><button class="add-to-cart-btn">+ Add</button></div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal delay-5" data-category="coffee">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600&q=80" alt="Cortado" loading="lazy"/>
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Small & Strong</p>
+          <h3 class="menu-card-name">Rose Cardamom Cortado</h3>
+          <p class="menu-card-desc">Equal parts espresso and warm milk, infused with dried rose petals and green cardamom. A small glass of something extraordinary that punches way above its size.</p>
+          <div class="menu-card-footer"><span class="menu-card-price">Rs. 310</span><button class="add-to-cart-btn">+ Add</button></div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal delay-6" data-category="coffee">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1571658735932-88ce5e2c2bdb?w=600&q=80" alt="Americano" loading="lazy"/>
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Classic</p>
+          <h3 class="menu-card-name">Long Black</h3>
+          <p class="menu-card-desc">Hot water poured over a double ristretto — preserving every ounce of crema. Bold, direct, honest. What coffee tastes like when nothing gets in the way.</p>
+          <div class="menu-card-footer"><span class="menu-card-price">Rs. 250</span><button class="add-to-cart-btn">+ Add</button></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- COLD DRINKS -->
+    <div class="menu-section-header reveal">
+      <h3 class="menu-section-title">Cold <em>Drinks</em></h3>
+      <div class="menu-section-line"></div>
+      <span class="menu-section-count">5 drinks</span>
+    </div>
+    <div class="menu-grid">
+
+      <div class="menu-card reveal delay-1" data-category="cold">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80" alt="Cold Brew" loading="lazy"/>
+          <span class="menu-card-badge">Summer Hit</span>
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Cold Brew</p>
+          <h3 class="menu-card-name">Cardamom Cold Brew</h3>
+          <p class="menu-card-desc">18-hour steep, cardamom-infused, hand-carved ice, oat milk splash. Smooth as silk, cool as a mountain breeze. This is what summer in Kathmandu should taste like.</p>
+          <div class="menu-card-footer"><span class="menu-card-price">Rs. 390</span><button class="add-to-cart-btn">+ Add</button></div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal delay-2" data-category="cold">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=600&q=80" alt="Iced Latte" loading="lazy"/>
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Iced</p>
+          <h3 class="menu-card-name">Brown Sugar Iced Latte</h3>
+          <p class="menu-card-desc">Espresso over ice, swirled with house-made brown sugar syrup and fresh milk. The caramel sweetness hits first, the espresso finishes strong. Pure joy in a glass.</p>
+          <div class="menu-card-footer"><span class="menu-card-price">Rs. 360</span><button class="add-to-cart-btn">+ Add</button></div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal delay-3" data-category="cold">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1579954115545-a95591f28bfc?w=600&q=80" alt="Mango Lassi" loading="lazy"/>
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Non-Coffee</p>
+          <h3 class="menu-card-name">Nepali Mango Lassi</h3>
+          <p class="menu-card-desc">Fresh Nepali mangoes blended with chilled yogurt, a pinch of cardamom, and rose water. Thick, fruity, cooling. A reminder that Nepal grows some of the world's most flavourful mangoes.</p>
+          <div class="menu-card-footer"><span class="menu-card-price">Rs. 280</span><button class="add-to-cart-btn">+ Add</button></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BRUNCH -->
+    <div class="menu-section-header reveal">
+      <h3 class="menu-section-title">All-Day <em>Brunch</em></h3>
+      <div class="menu-section-line"></div>
+      <span class="menu-section-count">6 dishes</span>
+    </div>
+    <div class="menu-grid">
+
+      <div class="menu-card reveal delay-1" data-category="food">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=600&q=80" alt="Avocado Toast" loading="lazy"/>
+          <span class="menu-card-badge">Most Loved</span>
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Brunch Signature</p>
+          <h3 class="menu-card-name">Mushroom Avocado Toast</h3>
+          <p class="menu-card-desc">Thick sourdough, smashed avo, garlic-butter wild mushrooms, shaved parmesan, poached egg. Every element in perfect tension. The dish that made Pota Cafe famous on Instagram.</p>
+          <div class="menu-card-footer"><span class="menu-card-price">Rs. 520</span><button class="add-to-cart-btn">+ Add</button></div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal delay-2" data-category="food">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1607532941433-304659e8198a?w=600&q=80" alt="Tibetan Toast" loading="lazy"/>
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Local Special</p>
+          <h3 class="menu-card-name">Tibetan Butter Toast</h3>
+          <p class="menu-card-desc">House-baked bread, yak butter from Helambu, raw mountain honey, black sesame. A Boudha tradition elevated — rich, warming, deeply satisfying. Pairs perfectly with our pour over.</p>
+          <div class="menu-card-footer"><span class="menu-card-price">Rs. 320</span><button class="add-to-cart-btn">+ Add</button></div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal delay-3" data-category="food">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=600&q=80" alt="Eggs Benedict" loading="lazy"/>
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Weekend Favourite</p>
+          <h3 class="menu-card-name">Kamusari Eggs Benedict</h3>
+          <p class="menu-card-desc">Two poached eggs trembling on brioche rounds with smoked salmon and Chef Kamusari's legendary lemon hollandaise. A weekend ritual for half of Boudha.</p>
+          <div class="menu-card-footer"><span class="menu-card-price">Rs. 580</span><button class="add-to-cart-btn">+ Add</button></div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal delay-4" data-category="food">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=600&q=80" alt="French Toast" loading="lazy"/>
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Sweet Brunch</p>
+          <h3 class="menu-card-name">Cardamom French Toast</h3>
+          <p class="menu-card-desc">Thick brioche soaked in cardamom-spiced custard, pan-fried golden, served with mascarpone, fresh berries, and a cascade of Jumla honey. Breakfast as it should always be.</p>
+          <div class="menu-card-footer"><span class="menu-card-price">Rs. 440</span><button class="add-to-cart-btn">+ Add</button></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- DESSERTS -->
+    <div class="menu-section-header reveal">
+      <h3 class="menu-section-title">House <em>Desserts</em></h3>
+      <div class="menu-section-line"></div>
+      <span class="menu-section-count">5 sweets</span>
+    </div>
+    <div class="menu-grid">
+
+      <div class="menu-card reveal delay-1" data-category="dessert">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&q=80" alt="Matcha Cheesecake" loading="lazy"/>
+          <span class="menu-card-badge">Fan Favourite</span>
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">No-Bake Cheesecake</p>
+          <h3 class="menu-card-name">Matcha Cheesecake</h3>
+          <p class="menu-card-desc">Ceremonial matcha swirled through silken cream cheese on a toasted almond base. Earthy, creamy, lightly sweet — and the most beautiful thing on our counter. Pairs outrageously with our lattes.</p>
+          <div class="menu-card-footer"><span class="menu-card-price">Rs. 320</span><button class="add-to-cart-btn">+ Add</button></div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal delay-2" data-category="dessert">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&q=80" alt="Chocolate Lava Cake" loading="lazy"/>
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Warm Dessert</p>
+          <h3 class="menu-card-name">Dark Chocolate Lava Cake</h3>
+          <p class="menu-card-desc">Molten 70% Ecuadorian chocolate flows from within a barely-set cake shell. Served warm with salted caramel ice cream. This is the dessert that makes tables go quiet.</p>
+          <div class="menu-card-footer"><span class="menu-card-price">Rs. 380</span><button class="add-to-cart-btn">+ Add</button></div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal delay-3" data-category="dessert">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1560008581-09826d1de69e?w=600&q=80" alt="Tiramisu" loading="lazy"/>
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Classic Italian</p>
+          <h3 class="menu-card-name">Pota's Tiramisu</h3>
+          <p class="menu-card-desc">Ladyfingers soaked in our own espresso, layered with Kamusari's mascarpone cream and dusted with dark Peruvian cocoa. Made fresh daily. We often run out. Come before 3pm.</p>
+          <div class="menu-card-footer"><span class="menu-card-price">Rs. 340</span><button class="add-to-cart-btn">+ Add</button></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PASTRIES -->
+    <div class="menu-section-header reveal">
+      <h3 class="menu-section-title">Fresh <em>Pastries</em></h3>
+      <div class="menu-section-line"></div>
+      <span class="menu-section-count">Baked daily · Until sold out</span>
+    </div>
+    <div class="menu-grid">
+
+      <div class="menu-card reveal delay-1" data-category="pastry">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&q=80" alt="Almond Croissant" loading="lazy"/>
+          <span class="menu-card-badge">Baked Fresh</span>
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Viennoiserie</p>
+          <h3 class="menu-card-name">Almond Croissant</h3>
+          <p class="menu-card-desc">Twice-baked butter croissant filled with almond frangipane, topped with toasted flaked almonds and powdered sugar. Shatteringly crisp, impossibly soft inside. Gone by noon most days.</p>
+          <div class="menu-card-footer"><span class="menu-card-price">Rs. 240</span><button class="add-to-cart-btn">+ Add</button></div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal delay-2" data-category="pastry">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=600&q=80" alt="Cinnamon Roll" loading="lazy"/>
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Morning Bake</p>
+          <h3 class="menu-card-name">Cardamom Cinnamon Roll</h3>
+          <p class="menu-card-desc">Soft, pull-apart dough swirled with brown butter, cinnamon, and green cardamom. Finished with cream cheese glaze while still warm. The smell alone is worth the trip to Boudha.</p>
+          <div class="menu-card-footer"><span class="menu-card-price">Rs. 220</span><button class="add-to-cart-btn">+ Add</button></div>
+        </div>
+      </div>
+
+      <div class="menu-card reveal delay-3" data-category="pastry">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=600&q=80" alt="Scone" loading="lazy"/>
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Afternoon Tea</p>
+          <h3 class="menu-card-name">Himalayan Honey Scone</h3>
+          <p class="menu-card-desc">Crumbly, buttery scone served warm with clotted cream and Jumla wildflower honey. A ritual we borrowed from the British and made entirely our own with Nepali mountain ingredients.</p>
+          <div class="menu-card-footer"><span class="menu-card-price">Rs. 200</span><button class="add-to-cart-btn">+ Add</button></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section style="padding:80px 5%;background:var(--espresso-mid);">
+    <div style="text-align:center;max-width:440px;margin:0 auto 48px;" class="reveal">
+      <span class="section-eyebrow">Made Fresh Daily</span>
+      <h2 class="section-title">Eat First with <em>Your Eyes</em></h2>
+      <div class="section-line" style="margin:24px auto;"></div>
+    </div>
+    <div class="gallery-masonry">
+      <div class="gallery-item reveal delay-1"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&q=80" alt="Latte art" loading="lazy"/><div class="gallery-overlay"><span class="gallery-caption">Latte Art</span></div></div>
+      <div class="gallery-item reveal delay-2"><img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=600&q=80" alt="Avocado Toast" loading="lazy"/><div class="gallery-overlay"><span class="gallery-caption">Avocado Toast</span></div></div>
+      <div class="gallery-item reveal delay-3"><img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&q=80" alt="Matcha Cheesecake" loading="lazy"/><div class="gallery-overlay"><span class="gallery-caption">Matcha Cheesecake</span></div></div>
+      <div class="gallery-item reveal delay-4"><img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&q=80" alt="Croissant" loading="lazy"/><div class="gallery-overlay"><span class="gallery-caption">Almond Croissant</span></div></div>
+      <div class="gallery-item reveal delay-5"><img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80" alt="Cold Brew" loading="lazy"/><div class="gallery-overlay"><span class="gallery-caption">Cold Brew</span></div></div>
+      <div class="gallery-item reveal delay-6"><img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&q=80" alt="Lava Cake" loading="lazy"/><div class="gallery-overlay"><span class="gallery-caption">Lava Cake</span></div></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Pota Cafe</div>
+        <p class="footer-desc">Where every sip tells a story.<br/>Artisan coffee in the heart of Boudha.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn">IG</a>
+          <a href="#" class="social-btn">FB</a>
+          <a href="#" class="social-btn">TK</a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Navigate</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">Our Story</a></li><li><a href="services.html">Menu</a></li><li><a href="contact.html">Visit Us</a></li></ul></div>
+      <div class="footer-col"><h4>Hours</h4><ul><li><a href="#">Mon–Fri: 10am–9pm</a></li><li><a href="#">Sat–Sun: 9am–10pm</a></li></ul></div>
+      <div class="footer-col"><h4>Find Us</h4><ul><li><a href="tel:9848303515">+977 984 830 3515</a></li><li><a href="#">hello@potacafe.com</a></li><li><a href="contact.html">Boudha-4, Kathmandu</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Pota Cafe. All rights reserved.</span>
+      <span>Brewed with ♥ in Boudha</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
